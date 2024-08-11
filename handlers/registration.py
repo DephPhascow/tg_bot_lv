@@ -11,6 +11,7 @@ from main import i18n
 from shortcuts import add_leo, get_leo, show_profile, update_leo
 from aiogram.fsm.context import FSMContext
 from aiogram.utils.i18n import lazy_gettext as __
+from aiogram.utils.i18n import gettext as _
 
 geolocator = Nominatim(user_agent="НУЖНЫЙ УЗЕР АГЕНТ")
 
@@ -223,14 +224,14 @@ async def send_welcome(message: types.Message, state: FSMContext):
         user = await User.get_or_none(user_id=message.from_user.id)
         if user:
             if not user.is_verified:
-                await message.reply(i18n.gettext("Рекомендуем пройти верификацию, чтобы другие пользователи доверяли вам больше."))
+                await message.reply(_("Рекомендуем пройти верификацию, чтобы другие пользователи доверяли вам больше."))
             if not user.is_registered:
-                await message.reply(i18n.gettext("Вы не завершили регистрацию. Давайте начнем с вашего возраста."), reply_markup=main_menu_kb())
+                await message.reply(_("Вы не завершили регистрацию. Давайте начнем с вашего возраста."), reply_markup=main_menu_kb())
                 await state.set_state(LeomatchRegistration.AGE)
             else:
-                await message.reply(i18n.gettext("Добро пожаловать обратно!"), reply_markup=main_menu_kb())
+                await message.reply(_("Добро пожаловать обратно!"), reply_markup=main_menu_kb())
         else:
-            await message.reply(i18n.gettext("Вы не зарегистрированы. Давайте начнем с вашего возраста."), reply_markup=main_menu_kb())
+            await message.reply(_("Вы не зарегистрированы. Давайте начнем с вашего возраста."), reply_markup=main_menu_kb())
             await state.set_state(LeomatchRegistration.AGE)
     except Exception as e:
         await message.reply(f"Error in send_welcome handler: {e}")

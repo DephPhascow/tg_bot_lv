@@ -34,7 +34,9 @@ i18n = I18n(domain=I18N_DOMAIN, path=LOCALES_DIR)
 
 bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
-dp = Dispatcher(bot=bot, storage=storage, middlewares=[CustomI18nMiddleware(i18n)])
+
+dp = Dispatcher(bot=bot, storage=storage,)
+CustomI18nMiddleware(i18n).setup(dp)
 
 
 # dp.update.middleware(CustomI18nMiddleware(i18n))
